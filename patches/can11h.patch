@@ -1,0 +1,18 @@
+# CAN11h conversion
+# chip: FLS
+# baseline: EDC16C35 SW 1037390198 HW 0281013852, stock FLS md5 946ac4996562d619c14208006daef0e7
+# doc: docs/CAN11h.md
+#
+# Enables the CAN11h message set so an E39 cluster and DSC see the engine.
+# Frame switches, two descriptor fields per TX message, and the runnable swap.
+#
+# format:  <addr>  <stock hex> -> <new hex>   # note
+# checksums are NOT in this file; applypatch.py recomputes them.
+
+0x0417E0  21 -> 11  # 0x316 descriptor +0x0C
+0x0417F0  21 -> 11  # 0x329 descriptor +0x0C
+0x041800  21 -> 11  # 0x545 descriptor +0x0C
+0x04180E  00 -> 02  # 0x170 descriptor +0x0A
+0x043DE0  0043AF84 -> 004340B8  # runnable -> CAN11h formatter 0x4340B8
+0x043E64  004340B8 -> 0043C2B8  # old runnable slot -> harmless fn 0x43C2B8
+0x0D9221  0000000001000000000000 -> 0101010100010101010101  # FrmMng frame switches ASC1..EGS2 (swtCANA 01->00)

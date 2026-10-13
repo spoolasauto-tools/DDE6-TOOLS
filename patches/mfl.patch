@@ -1,0 +1,16 @@
+# MFL steering wheel buttons
+# chip: FLS
+# baseline: EDC16C35 SW 1037390198 HW 0281013852, stock FLS md5 946ac4996562d619c14208006daef0e7
+# doc: docs/MFL.md
+#
+# Switches the cruise button input from CAN to the serial wire on pin 37.
+# CrCCD_swtDevVal_C is the decisive byte: 2 = CAN, 1 = serial.
+#
+# format:  <addr>  <stock hex> -> <new hex>   # note
+# checksums are NOT in this file; applypatch.py recomputes them.
+
+0x0CA926  00 -> 01  # CrCCD_stMSWModeDflt_C
+0x0CA928  02 -> 01  # CrCCD_swtDevVal_C  2=CAN 1=serial
+0x0CA92A  00 -> 01  # CrCCD_swtMSWVal_C
+0x0CA92D  0C -> 00  # CrCCD_tiDebSetMn_C+1
+0x0CA92F  0C -> 00  # CrCCD_tiDebSetPl_C+1

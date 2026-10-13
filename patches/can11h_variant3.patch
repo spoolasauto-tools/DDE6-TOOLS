@@ -1,0 +1,27 @@
+# CAN11h via variant 3 (the factory route)
+# chip: MPC
+# baseline: EDC16C35 SW 1037390198 HW 0281013852, stock MPC md5 4bdbcf62c0b95010ffa2f3f033c46149
+# doc: docs/CAN11h.md
+#
+# Makes the ECU configure its CAN region exactly the way an E53 does.
+#
+# The variant dispatch at 0x435314 reads a vehicle variant code and branches.
+# Variant 3 is the CAN11h vehicle: it is the only value that takes the
+# config-2 path, stores triple C (02 01 02), and maps the producer gate to
+# 0x11 so the CAN12H producers skip and the CAN11h formatter runs.
+#
+#   stock:  lbz r4, 0(r12)     read the coded variant
+#   new:    li  r4, 3          force the E53 configuration
+#
+# Everything downstream follows, including all nine other consumers of the
+# variant byte, so the ECU is internally consistent rather than half-converted.
+#
+# This REPLACES can11h.patch. Do not apply both. It needs the frame switches
+# from can11h.patch as well - see the doc. CAN12H stops entirely, which is the
+# point.
+#
+# Addresses are CPU addresses (MPC runs at 0x400000).
+# format:  <addr>  <stock hex> -> <new hex>   # note
+# checksums are NOT in this file; applypatch.py recomputes them.
+
+0x435324  888C0000 -> 38800003  # lbz r4,0(r12) -> li r4,3  (force variant 3)

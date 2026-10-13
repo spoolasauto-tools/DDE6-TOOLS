@@ -1,0 +1,18 @@
+# Unidentified calibration pair
+# chip: FLS
+# baseline: EDC16C35 SW 1037390198 HW 0281013852, stock FLS md5 946ac4996562d619c14208006daef0e7
+# doc: -
+#
+# Present in my flashed file, NOT identified. Checksum-neutral:
+# word 0x0C3C9C goes 0 -> +768 and word 0x0C3CA0 goes -768, netting zero
+# across checksum range 0x0C3A10-0x0C3CA3.
+# Neighbours are OvRMon_ctDebToTORQUE_* debounce counters; the next named
+# object is AC_rAdjValDef_C at 0x0C3CA4. Origin unknown - it may predate
+# this work. Not required by any modification here. Skip it unless you
+# know what it is.
+#
+# format:  <addr>  <stock hex> -> <new hex>   # note
+# checksums are NOT in this file; applypatch.py recomputes them.
+
+0x0C3C9C  00 -> 03  # word 0x0C3C9C 0x0000 -> 0x0300  (+768)
+0x0C3CA0  17 -> 14  # word 0x0C3CA0 0x1726 -> 0x1426  (-768)

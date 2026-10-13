@@ -1,0 +1,15 @@
+# CAN11h frame switches only
+# chip: FLS
+# baseline: EDC16C35 SW 1037390198 HW 0281013852, stock FLS md5 946ac4996562d619c14208006daef0e7
+# doc: docs/CAN11h.md
+#
+# The frame switch block on its own, without the descriptor fields or the
+# runnable swap. This is the part a factory CAN11h car (E53) also has set.
+#
+# Pair this with can11h_variant3.patch for the factory configuration, or try
+# it alone first to find out whether the rest of can11h.patch is needed at all.
+#
+# format:  <addr>  <stock hex> -> <new hex>   # note
+# checksums are NOT in this file; applypatch.py recomputes them.
+
+0x0D9221  0000000001000000000000 -> 0101010100010101010101  # FrmMng switches ASC1..EGS2 (swtCANA 01->00)
